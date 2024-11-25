@@ -1,0 +1,75 @@
+hello.c
+
+#include <stdio.h>
+
+int main() {
+    printf("Hello, world\n");
+    return 0;
+}
+
+obr.c
+
+double obr(int i) {
+    if (i == 0) {
+        printf("Error: Division by zero\n");
+        return 0; // Додаємо перевірку на нуль, щоб уникнути помилки ділення на нуль
+    }
+    return 1.0 / i;
+}
+
+
+main.c
+
+#include <stdio.h>
+
+double obr(int i);  // Оголошення функції
+
+int main() {
+    int i;
+    printf("Enter an integer: ");
+    scanf("%d", &i);
+    
+    double result = obr(i);
+    if (i != 0) {
+        printf("The reciprocal of %d is: %f\n", i, result);
+    }
+    return 0;
+}
+
+
+Makefile
+
+
+CC = gcc
+CFLAGS = -Wall
+OBJS = obr.o main.o
+
+obr_program: $(OBJS)
+	$(CC) $(OBJS) -o obr_program
+
+obr.o: obr.c
+	$(CC) $(CFLAGS) -c obr.c
+
+main.o: main.c
+	$(CC) $(CFLAGS) -c main.c
+
+clean:
+	rm -f *.o obr_program
+
+
+example.c
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Usage: %s <integer>\n", argv[0]);
+        return 1;
+    }
+
+    int i = atoi(argv[1]);  // Перетворення рядка на ціле число
+    printf("You entered: %d\n", i);
+    return 0;
+}
